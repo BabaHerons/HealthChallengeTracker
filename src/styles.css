@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input,
+textarea,
+button,
+div,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.input {
+    @apply
+    block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-gray-900 bg-gray-200 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-[#159fef]
+}
+
+.input-label {
+    @apply
+    absolute text-black duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-[#159fef] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4
+    cursor-text
+}
+
+.select {
+    @apply
+    bg-gray-200 border-b border-gray-300 text-gray-900 outline-none block w-full p-2.5 focus:border-b-[#159fef] focus:border-b-2
+}
+
+.select-label {
+    @apply
+    block mb-2 text-left text-sm font-medium text-black
+}
+
+.validation {
+    @apply
+    text-red-500 text-start
+}
+
+.not-validation {
+    @apply
+    text-blue-500 text-start
+}
+
+.abbr {
+    @apply
+    text-red-600 font-bold
+}

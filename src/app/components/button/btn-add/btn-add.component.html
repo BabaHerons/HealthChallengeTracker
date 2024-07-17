@@ -1,0 +1,9 @@
+<button *ngIf="!loading" (click)="btnClick()" class="flex gap-0 px-[2px] rounded bg-green-500 text-gray-200 shadow shadow-gray-800 active:shadow-[2px] hover:cursor-pointer add">
+    <div class="px-1 mt-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+            <path d="M8 1a1 1 0 0 1 1 1v5h5a1 1 0 0 1 0 2H9v5a1 1 0 1 1-2 0V9H2a1 1 0 0 1 0-2h5V2a1 1 0 0 1 1-1Z"/>
+        </svg>
+    </div>
+    <div class="h-[24px] border-r-[1px] border-gray-500"></div>
+    <div class="px-1">{{ text }}</div>
+</button>

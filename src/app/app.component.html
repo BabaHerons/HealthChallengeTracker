@@ -1,20 +1,59 @@
 <section>
   <!-- HEADING OF THE PAGE -->
-  <h1 class="flex justify-center text-5xl font-serif font-bold my-4 underline underline-offset-4 text-black">Health Challenge Tracker</h1>
+  <h1 class="flex justify-center text-center text-[#615EFC] text-5xl font-serif font-bold m-4 underline underline-offset-4">Health Challenge Tracker</h1>
 
   <!-- MAIN DIV TO CONTAIN FORM, TABLE, CHART -->
-  <main class="flex flex-col justify-center my-4">
+  <main class="flex flex-col justify-center my-4 mx-auto container">
     <!-- FORM -->
-    <div>
-      
-    </div>      
+    <h2 class="text-center text-blue-600 mt-5 mb-2 font-mono font-semibold text-2xl">Workout Form</h2>
+    <hr class="border border-blue-500">
+    <form [formGroup]="user_data_form">
+      <div class="grid grid-cols-2 m-5 gap-4">
+        <!-- FIRST COLUMN -->
+        <div class="flex flex-col gap-4" >
+          <!-- USERNAME -->
+          <div class="relative">
+            <input type="text" id="username" formControlName="username" class="input peer" placeholder=" "/>
+            <label for="username" class="input-label">User Name<abbr class="abbr">*</abbr></label>
+          </div>
+
+          <!-- WORKOUT TYPE -->
+          <div class="relative">
+            <label for="workout_type" class="select-label">Workout Type<abbr class="abbr">*</abbr></label>
+            <select id="workout_type" formControlName="workout_type" class="select">
+              <option selected disabled>Select</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- SECOND COLUMN -->
+        <div class="flex flex-col gap-4" >
+          <!-- WORKOUT MINUTES -->
+          <div class="relative">
+            <input type="number" id="workout_mins" formControlName="workout_mins" class="input peer" placeholder=" "/>
+            <label for="workout_mins" class="input-label"> Workout Minutes<abbr class="abbr">*</abbr></label>
+          </div>
+
+          <!-- ADD BUTTON -->
+          <div class="flex justify-center items-center h-full">
+            <app-btn-add text="Add Workout"></app-btn-add>
+          </div>
+        </div>
+      </div>
+    </form>
     
     <!-- TABLE -->
+    <h2 class="text-center text-blue-600 mt-5 mb-2 font-mono font-semibold text-2xl">Workout List</h2>
+    <hr class="border border-blue-500">
     <div>
-
+      <app-table
+      [table_headers]="table_headers"
+      ></app-table>
     </div>      
     
     <!-- CHART   -->
+    <h2 class="text-center text-blue-600 mt-5 mb-2 font-mono font-semibold text-2xl">Workout Progress</h2>
+    <hr class="border border-blue-500">
     <div>
 
     </div>      
