@@ -22,6 +22,11 @@
             <label for="workout_type" class="select-label">Workout Type<abbr class="abbr">*</abbr></label>
             <select id="workout_type" formControlName="workout_type" class="select">
               <option selected disabled>Select</option>
+              <option value="Cycling">Cycling</option>
+              <option value="Gym">Gym</option>
+              <option value="Running">Running</option>
+              <option value="Swimming">Swimming</option>
+              <option value="Yoga">Yoga</option>
             </select>
           </div>
         </div>
@@ -36,7 +41,7 @@
 
           <!-- ADD BUTTON -->
           <div class="flex justify-center items-center h-full">
-            <app-btn-add text="Add Workout"></app-btn-add>
+            <app-btn-add text="Add Workout" (onClick)="add_workout_data()"></app-btn-add>
           </div>
         </div>
       </div>
