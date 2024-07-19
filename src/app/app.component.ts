@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { BtnAddComponent } from './components/button/btn-add/btn-add.component';
 import { TableComponent } from './components/table/table.component';
 import  Chart from 'chart.js/auto';
+import { ApiService } from './service/api.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,8 @@ import  Chart from 'chart.js/auto';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  constructor(private api:ApiService){}
+
   ngOnInit(){
     // PATCH THE USER DATA FORM  SO THAT IT WON'T BE EMPTY
     this.user_data_form.patchValue({
@@ -25,9 +28,7 @@ export class AppComponent {
     })
 
     // CHECKING THE AVAAILABILITY OF USER DATA IN LOCALSTORAGE
-    if (!localStorage.getItem("userData")){
-      localStorage.setItem("userData", JSON.stringify(this.userData))
-    }
+    this.api.get_user_data()
 
     // UPDATING THE USER DATA
     this.userData = JSON.parse(localStorage.getItem("userData")!)

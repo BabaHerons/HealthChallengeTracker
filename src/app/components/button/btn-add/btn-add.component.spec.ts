@@ -20,4 +20,18 @@ describe('BtnAddComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it("should return the passed functionality to the button", () => {
+  //   let btn = new BtnAddComponent
+  //   let result = btn.btnClick()
+  // })
+
+  it('should correctly @Output value of text input in component', () => {
+    spyOn(component.onClick, 'emit')
+    const button = fixture.nativeElement.querySelector('button');
+    button.click();
+    fixture.detectChanges();
+  
+    expect(component.onClick.emit).toHaveBeenCalledWith(component.btnClick());
+  });
 });

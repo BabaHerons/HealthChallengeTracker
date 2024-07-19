@@ -12,4 +12,19 @@ Run `npm run serve` for a dev server.
 Navigate to `http://localhost:4200/`. 
 The application will automatically reload if you change any of the source files.
 
+## Api Service Code Coverage Report
+=============================== Coverage summary ===============================
+Statements   : 100% ( 4/4 )
+Branches     : 100% ( 1/1 )
+Functions    : 100% ( 2/2 )
+Lines        : 100% ( 4/4 )
+================================================================================
 
+
+## Add Button Component Code Coverage Report
+=============================== Coverage summary ===============================
+Statements   : 100% ( 6/6 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 1/1 )
+Lines        : 100% ( 6/6 )
+================================================================================
