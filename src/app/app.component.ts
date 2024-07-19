@@ -25,8 +25,11 @@ export class AppComponent {
     if (!localStorage.getItem("userData")){
       localStorage.setItem("userData", JSON.stringify(this.userData))
     }
+    
+    this.get_workout_data() 
   }
 
+  newUserData:any = []
   userData = [
     {
       id: 1,
@@ -53,6 +56,33 @@ export class AppComponent {
       ]
     },
   ]
+
+  compile_data(userData:any){
+    let result = []
+    for (let i=0; i<userData.length; i++){
+      let user = userData[i]
+      let data = {
+        username: "",
+        workout_types:"",
+        workout_count:"",
+        workout_mins:0,
+      }
+      data.username = user.name
+      data.workout_count = user.workouts?.length
+      for (let k=0; k<user.workouts?.length; k++){
+        let workout = user.workouts[k]
+        data.workout_mins += workout.minutes
+        if (data.workout_types == ""){
+          data.workout_types += workout.type
+        }
+        else {
+          data.workout_types += ", " + workout.type
+        }
+      }
+      result.push(data)
+    }
+    return result
+  }
 
   user_data_form = new FormGroup({
     username: new FormControl(""),
@@ -124,5 +154,12 @@ export class AppComponent {
     // SETTING THE UPDATED VALUE TO LOCALSTORAGE
     localStorage.setItem("userData", JSON.stringify(old_data))
     this.ngOnInit()
+  }
+
+  get_workout_data(enoff: number[] = [5, 0]){
+    let from = enoff[1]
+    let to = enoff[1] + enoff[0]
+    this.newUserData = this.compile_data(JSON.parse(localStorage.getItem("userData")!))
+    this.newUserData = this.newUserData.slice(from, to)
   }
 }

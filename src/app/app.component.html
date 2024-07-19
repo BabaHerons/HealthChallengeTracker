@@ -53,6 +53,8 @@
     <div>
       <app-table
       [table_headers]="table_headers"
+      [table_records]="newUserData"
+      (api_call)="get_workout_data($event)"
       ></app-table>
     </div>      
     
