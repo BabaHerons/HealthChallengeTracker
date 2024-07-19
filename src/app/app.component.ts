@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { BtnAddComponent } from './components/button/btn-add/btn-add.component';
 import { TableComponent } from './components/table/table.component';
+import  Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-root',
@@ -25,9 +26,16 @@ export class AppComponent {
     if (!localStorage.getItem("userData")){
       localStorage.setItem("userData", JSON.stringify(this.userData))
     }
+    this.userData = JSON.parse(localStorage.getItem("userData")!)
     
-    this.get_workout_data() 
+    this.get_workout_data()
+    this.update_graph(this.userData[0])
   }
+
+  ngAfterViewInit(){
+    this.createChart()
+  }
+
 
   newUserData:any = []
   userData = [
@@ -161,5 +169,66 @@ export class AppComponent {
     let to = enoff[1] + enoff[0]
     this.newUserData = this.compile_data(JSON.parse(localStorage.getItem("userData")!))
     this.newUserData = this.newUserData.slice(from, to)
+  }
+
+  chart:any = []
+  x_label:any = []
+  chart_data:any = []
+  custom_label:string = ""
+  chart_created:boolean = false
+
+  createChart(){
+    let canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
+    let ctx = canvas.getContext("2d")!
+    this.chart = new Chart(ctx, {
+      type: 'bar', //this denotes tha type of chart
+      data: {// values on X-Axis
+        // labels: Object.keys(this.appt_dates),
+        labels: this.x_label,
+	      datasets: [
+          {
+            label: this.custom_label + "'s Workout",
+            data: this.chart_data,
+            backgroundColor: '#a8d1df',
+            // type: "bar"
+          },
+        ]
+      },
+      options: {
+        aspectRatio:2.5,
+        // indexAxis:'y',
+        scales:{
+          x: {
+            // max:1000000000,
+            ticks:{
+              stepSize:1
+            }
+          }
+        }
+      },
+      
+    });
+    this.chart_created = true
+  }
+
+  update_graph(user:any){
+    this.custom_label = user.name
+    this.get_graph_data(user)
+    if (this.chart_created){
+      this.chart.destroy()
+    }
+    this.createChart()
+  }
+
+  get_graph_data(user:any){
+    let x = []
+    let y = []
+    for (let i=0; i<user.workouts.length; i++){
+      let workout = user.workouts[i]
+      x.push(workout.type)
+      y.push(workout.minutes)
+    }
+    this.x_label = x
+    this.chart_data = y
   }
 }
