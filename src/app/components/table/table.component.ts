@@ -22,12 +22,12 @@ export class TableComponent {
     this.incoming_table_headers_values = Object.values(this.table_headers)
   }
 
+  // SOME INPUT & OUTPUT VALUES FOR THIS 'TABLE' COMPONENT
   @Input() table_headers:any = {}
   @Input() table_records:any = []
   @Input() loading_table:boolean = false
   @Input() s_no:boolean = true
   @Input() custom_not_found:string = "No Data Found"
-  @Input() workouts:boolean = false
 
   @Output() api_call = new EventEmitter
   api_call_emit(entries:Number, offset:Number){
@@ -41,17 +41,15 @@ export class TableComponent {
   n:number = 5
   offset:number = 0
 
+  // FOR DISPLAYING THE NUMBER OF RECORDS IN THE PAGE
   select_records(new_value:number){
     this.n = Number(new_value)
     this.offset = 0
     this.api_call_emit(this.n, this.offset)
   }
-
-  onSearchTypeChange() {
-    this.search_text_form.reset();
-  }
   
 
+  // FOR PREVIOUS BUTTON
   subtract(){
     this.prev_loading = true
     if ((this.offset > 0) && ((this.offset - this.n) >= 0)){
@@ -62,6 +60,7 @@ export class TableComponent {
     this.next_loading = false
   }
 
+  // FOR NEXT BUTTON
   add(){
     this.next_loading = true
     if (this.table_records.length > 0){
@@ -87,6 +86,7 @@ export class TableComponent {
     department:new FormControl(""),
   })
 
+  // SEARCH WITH ANY DATA
   search_by_text(){
     let data = this.search_text_form.value["search_text"]
     let searched_records:any = []
@@ -102,6 +102,7 @@ export class TableComponent {
     this.table_records = searched_records
   } 
 
+  // FOR REFRESHING THE DATA
   refresh(){
     this.search_text_form.reset({
       search_text: '',

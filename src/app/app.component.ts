@@ -17,21 +17,29 @@ import  Chart from 'chart.js/auto';
 })
 export class AppComponent {
   ngOnInit(){
+    // PATCH THE USER DATA FORM  SO THAT IT WON'T BE EMPTY
     this.user_data_form.patchValue({
       workout_type: "Select",
       username: "",
       workout_mins: ""
     })
 
+    // CHECKING THE AVAAILABILITY OF USER DATA IN LOCALSTORAGE
     if (!localStorage.getItem("userData")){
       localStorage.setItem("userData", JSON.stringify(this.userData))
     }
+
+    // UPDATING THE USER DATA
     this.userData = JSON.parse(localStorage.getItem("userData")!)
     
+    // GETTING THE WORKOUT DATA FOR THE TABLE
     this.get_workout_data()
+
+    // SETTING THE INITIAL GRAPH DETAILS
     this.update_graph(this.userData[0])
   }
 
+  // CREATING THE CHART AFTER THE DOM RENDERS
   ngAfterViewInit(){
     this.createChart()
   }
@@ -65,6 +73,7 @@ export class AppComponent {
     },
   ]
 
+  // THIS FUNCTION TAKES THE userData AND RETURN THE DATA FORMATTED FOR THE TABLE
   compile_data(userData:any){
     let result = []
     for (let i=0; i<userData.length; i++){
@@ -98,6 +107,7 @@ export class AppComponent {
     workout_mins: new FormControl(""),
   })
 
+  // WORKOUT DATA TABLE HEADERS
   table_headers = {
     "username": "Name",
     "workout_types": "Workouts",
@@ -105,6 +115,7 @@ export class AppComponent {
     "workout_mins": "Total Workout Minutes",
   }
 
+  // FUNCTIONT TO ADD THE WORKOUT DATA FOR THE USER
   add_workout_data(){
     // GETTING THE DATA FROM LOCALSTORAGE
     let old_data = JSON.parse(localStorage.getItem("userData")!)
@@ -164,6 +175,7 @@ export class AppComponent {
     this.ngOnInit()
   }
 
+  // THIS FUNCTION SIMULATES THE API CALL FOR GETTING THE WORKOUT DATA FROM THE BACKEND
   get_workout_data(enoff: number[] = [5, 0]){
     let from = enoff[1]
     let to = enoff[1] + enoff[0]
@@ -177,6 +189,7 @@ export class AppComponent {
   custom_label:string = ""
   chart_created:boolean = false
 
+  // FUNCTION TO CREATE THE CHART FOR TRACKING THE WORKOUT PROGRESS
   createChart(){
     let canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
     let ctx = canvas.getContext("2d")!
@@ -211,6 +224,7 @@ export class AppComponent {
     this.chart_created = true
   }
 
+// FUNCTION TO UPDATE THE GRAPH UPON USER SELECTION
   update_graph(user:any){
     this.custom_label = user.name
     this.get_graph_data(user)
@@ -220,6 +234,7 @@ export class AppComponent {
     this.createChart()
   }
 
+  // FUNCTION TO UPDATE THE X-AXIS & Y-AXIS UPON PASSING A USER DATA
   get_graph_data(user:any){
     let x = []
     let y = []
